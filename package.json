@@ -5,7 +5,8 @@
   "main": "index.js",
   "author": "alphasec",
   "license": "MIT",
-   "dependencies": {
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12"
   },
   "scripts": {
     "start": "node index.js"
