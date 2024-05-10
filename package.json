@@ -1,13 +1,21 @@
 {
-  "name": "nodejs-app",
+  "name": "vscode",
   "version": "1.0.0",
-  "description": "A minimal Node.js web application.",
+  "description": "",
   "main": "index.js",
-  "author": "alphasec",
-  "license": "MIT",
-   "dependencies": {
-  },
   "scripts": {
-    "start": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^6.6.1",
+    "node-telegram-bot-api": "^0.65.1",
+    "p-limit": "^5.0.0",
+    "puppeteer": "^21.9.0",
+    "puppeteer-core": "^22.8.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-anonymize-ua": "^2.4.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
   }
 }
