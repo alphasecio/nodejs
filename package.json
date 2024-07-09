@@ -1,13 +1,24 @@
 {
-  "name": "nodejs-app",
-  "version": "1.0.0",
-  "description": "A minimal Node.js web application.",
-  "main": "index.js",
-  "author": "alphasec",
-  "license": "MIT",
-   "dependencies": {
-  },
+  "name": "glitch-mvp-node",
+  "version": "0.1.0",
+  "description": "A simple Node app built on fastify, instantly up and running.",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
-  }
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.17.1",
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/glitch-mvp-node"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch"
+  ]
 }
