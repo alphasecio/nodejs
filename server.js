@@ -41,6 +41,6 @@ wss.on('connection', (ws) => {
 // Serve static files from 'public' directory
 app.use(express.static('unity_build'));
 
-const listener = server.listen(3000, () => {
+const listener = server.listen(process.env.PORT || 3000, () => {
   console.log('Your app is listening on port ' + listener.address().port);
 });
