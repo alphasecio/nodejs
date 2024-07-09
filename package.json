@@ -4,7 +4,7 @@
   "description": "A simple Node app built on fastify, instantly up and running.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "ws": "^8.17.1",
@@ -14,7 +14,7 @@
     "node": "14.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/glitch-mvp-node"
+    "url": "https://github.com/cHacHaem/unity_websocket"
   },
   "license": "MIT",
   "keywords": [
