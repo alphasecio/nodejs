@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11x Deal Accelerator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="flex flex-col min-h-screen">
+    <div class="overlay"></div>
+    <header class="header">
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-bold text-black">11x Deal Accelerator</h1>
+        </div>
+    </header>
+    <main class="flex-grow flex items-center justify-center py-12 px-4">
+        <div class="form-container rounded-lg max-w-4xl w-full flex overflow-hidden">
+            <div class="w-full md:w-1/2 p-8">
+                <h2 class="text-2xl font-semibold mb-6">Empower Your Decision-Making with Instant Deal Analysis!</h2>
+                <form id="underwriting-calculator-form">
+                    <div class="mb-4 relative">
+                        <label class="block text-gray-700 font-semibold mb-2" for="disposable-income-goal">11X Plan Disposable Income Goal:</label>
+                        <div class="relative">
+                            <i class="fas fa-dollar-sign absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <input class="w-full p-2 pl-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary-color" type="number" id="disposable-income-goal" name="disposable-income-goal" placeholder="Enter the goal" aria-label="11X Plan Disposable Income Goal">
+                        </div>
+                    </div>
+                    <div class="mb-4 relative">
+                        <label class="block text-gray-700 font-semibold mb-2" for="current-disposable-income">Current Disposable Income (%):</label>
+                        <div class="relative">
+                            <i class="fas fa-percentage absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <input class="w-full p-2 pl-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary-color" type="number" id="current-disposable-income" name="current-disposable-income" placeholder="Enter current disposable income" aria-label="Current Disposable Income">
+                        </div>
+                    </div>
+                    <div class="mb-4 relative">
+                        <label class="block text-gray-700 font-semibold mb-2" for="average-sale">Average Sale per Client:</label>
+                        <div class="relative">
+                            <i class="fas fa-shopping-cart absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <input class="w-full p-2 pl-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary-color" type="number" id="average-sale" name="average-sale" placeholder="Enter average sale per client" aria-label="Average Sale per Client">
+                        </div>
+                    </div>
+                    <div class="mb-4 relative">
+                        <label class="block text-gray-700 font-semibold mb-2" for="conversion-percentage">Conversion Percentage (%):</label>
+                        <div class="relative">
+                            <i class="fas fa-chart-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <input class="w-full p-2 pl-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary-color" type="number" id="conversion-percentage" name="conversion-percentage" placeholder="Enter conversion percentage" aria-label="Conversion Percentage">
+                        </div>
+                    </div>
+                    <div class="mb-4 relative">
+                        <label class="block text-gray-700 font-semibold mb-2" for="fixed-costs">Fixed Costs (e.g., 20k):</label>
+                        <div class="relative">
+                            <i class="fas fa-file-invoice-dollar absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <input class="w-full p-2 pl-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary-color" type="number" id="fixed-costs" name="fixed-costs" placeholder="Enter fixed costs" aria-label="Fixed Costs">
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-yellow-400 text-black py-3 rounded-md hover:bg-yellow-500 transition duration-300 ease-in-out transform hover:scale-105">Calculate</button>
+                </form>
+            </div>
+            <div class="w-full md:w-1/2 bg-black bg-opacity-80 text-white flex flex-col justify-center items-center p-8">
+                <div id="loading" class="hidden mb-6">
+                    <i class="fas fa-spinner fa-spin text-4xl text-yellow-400"></i>
+                </div>
+                <div class="text-center mb-6">
+                    <h3 class="text-xl font-bold">New Revenue Target</h3>
+                    <div class="output-container">
+                        <p id="new-revenue-target" class="text-4xl font-bold result-animation text-yellow-400">$0</p>
+                    </div>
+                </div>
+                <div class="bg-yellow-400 text-center p-6 rounded-lg shadow-lg mb-6">
+                    <h3 class="text-xl font-bold text-black">Sales Needed</h3>
+                    <div class="output-container">
+                        <p id="sales-needed" class="text-4xl font-bold text-black result-animation">$0</p>
+                    </div>
+                </div>
+                <button id="cta-button" class="cta-button hidden">Get More Details</button>
+            </div>
+        </div>
+    </main>
+    
+    <div id="modal" class="modal">
+        <div class="modal-content bg-white rounded-lg shadow-2xl max-w-md w-full mx-4">
+            <div class="flex justify-between items-center border-b border-gray-200 pb-3 mb-4">
+                <h2 class="text-2xl font-bold text-gray-800">Get More Details</h2>
+                <button class="close text-gray-600 hover:text-gray-800 transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="details-form" class="space-y-4">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2" for="full-name">Full Name</label>
+                    <div class="relative">
+                        <i class="fas fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-color" type="text" id="full-name" name="full-name" placeholder="Enter your full name" required>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2" for="email">Email</label>
+                    <div class="relative">
+                        <i class="fas fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-color" type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2" for="phone">Phone Number</label>
+                    <div class="relative">
+                        <i class="fas fa-phone absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-color" type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-primary-color text-white font-semibold py-3 rounded-md hover:bg-opacity-90 transition-colors duration-300 ease-in-out transform hover:scale-105">
+                    Submit
+                </button>
+            </form>
+            <div id="thank-you-message" class="hidden text-center py-8">
+                <div class="mb-4">
+                    <i class="fas fa-check-circle text-6xl text-green-500"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Thank You!</h2>
+                <p class="text-gray-600">We've received your information and will be in touch shortly.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function formatNumber(num) {
+            if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
+            if (num >= 1e6) return (num / 1e6).toFixed(1) + 'M';
+            if (num >= 1e3) return (num / 1e3).toFixed(1) + 'K';
+            return num.toFixed(2);
+        }
+        
+        function validateForm() {
+            const inputs = document.querySelectorAll('input[type="number"]');
+            let isValid = true;
+            inputs.forEach(input => {
+                if (!input.value) {
+                    input.classList.add('border-red-500');
+                    isValid = false;
+                } else {
+                    input.classList.remove('border-red-500');
+                }
+            });
+            return isValid;
+        }
+        
+        document.getElementById('underwriting-calculator-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+        
+            if (!validateForm()) {
+                alert('Please fill in all fields.');
+                return;
+            }
+        
+            const loading = document.getElementById('loading');
+            loading.classList.remove('hidden');
+        
+            setTimeout(() => {
+                const disposableIncomeGoal = parseFloat(document.getElementById('disposable-income-goal').value);
+                const currentDisposableIncome = parseFloat(document.getElementById('current-disposable-income').value) / 100;
+                const averageSale = parseFloat(document.getElementById('average-sale').value);
+                const conversionPercentage = parseFloat(document.getElementById('conversion-percentage').value) / 100;
+                const fixedCosts = parseFloat(document.getElementById('fixed-costs').value);
+        
+                const newRevenueTarget = disposableIncomeGoal / currentDisposableIncome;
+                const salesNeeded = newRevenueTarget / averageSale;
+                const totalSalesMeetings = salesNeeded / conversionPercentage;
+                const sharedExperiences = totalSalesMeetings / 10;
+        
+                document.getElementById('new-revenue-target').innerText = `$${formatNumber(newRevenueTarget)}`;
+                document.getElementById('sales-needed').innerText = `${formatNumber(salesNeeded)}`;
+        
+                loading.classList.add('hidden');
+                document.getElementById('cta-button').classList.remove('hidden');
+            }, 1000);
+        });
+        
+        document.getElementById('cta-button').addEventListener('click', function() {
+            document.getElementById('modal').style.display = 'flex';
+        });
+        
+        document.querySelector('.close').addEventListener('click', function() {
+            document.getElementById('modal').style.display = 'none';
+        });
+        
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        document.getElementById('details-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            this.style.display = 'none';
+        
+            const fullName = document.getElementById('full-name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+        
+            const disposableIncomeGoal = parseFloat(document.getElementById('disposable-income-goal').value);
+            const currentDisposableIncome = parseFloat(document.getElementById('current-disposable-income').value) / 100;
+            const averageSale = parseFloat(document.getElementById('average-sale').value);
+            const conversionPercentage = parseFloat(document.getElementById('conversion-percentage').value) / 100;
+            const fixedCosts = parseFloat(document.getElementById('fixed-costs').value);
+        
+            const newRevenueTarget = disposableIncomeGoal / currentDisposableIncome;
+            const salesNeeded = newRevenueTarget / averageSale;
+            const totalSalesMeetings = salesNeeded / conversionPercentage;
+            const sharedExperiences = totalSalesMeetings / 10;
+        
+            fetch('https://hooks.zapier.com/hooks/catch/15640277/22u7y90/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    fullName,
+                    email,
+                    phone,
+                    newRevenueTarget,
+                    salesNeeded,
+                    totalSalesMeetings,
+                    sharedExperiences
+                })
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById('thank-you-message').classList.remove('hidden');
+                    setTimeout(() => {
+                        document.getElementById('modal').style.display = 'none';
+                        document.getElementById('details-form').reset();
+                        document.getElementById('details-form').style.display = 'block';
+                        document.getElementById('thank-you-message').classList.add('hidden');
+                    }, 3000);
+                } else {
+                    alert("There was an issue with your submission. Please try again.");
+                    document.getElementById('details-form').style.display = 'block';
+                }
+            }).catch((error) => {
+                console.error('Error:', error);
+                alert("There was an issue with your submission. Please try again.");
+                document.getElementById('details-form').style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
