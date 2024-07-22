@@ -1,0 +1,28 @@
+html {
+    height: 100%;
+    width: 100%;
+  }
+  
+  body {
+    display: table;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .row {
+    display: table-row;
+    height: 75%;
+    background-color: #282828;
+    text-align: center;
+  }
+  
+  .h1 {
+    font-size: 54px;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #FFFFFF 0%, #FF6600 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-top: 100px;
+  }
