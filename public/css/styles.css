@@ -1,28 +1,54 @@
-html {
-    height: 100%;
-    width: 100%;
-  }
-  
-  body {
-    display: table;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-  }
-  
-  .row {
-    display: table-row;
-    height: 75%;
-    background-color: #282828;
+body {
+  background: black; /* fallback/background under image */
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+
+  /* background image */
+  background-image: url('defne.jpeg');
+  background-repeat: no-repeat;
+  background-size: auto 100vh;      /* scale height to viewport, width auto */
+  background-position: center calc(-1dvh); /* move 1dvh upwards */
+}
+
+
+.wishlist {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 300px;
+}
+h2 {
     text-align: center;
-  }
-  
-  .h1 {
-    font-size: 54px;
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(to right, #FFFFFF 0%, #FF6600 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    padding-top: 100px;
-  }
+    margin-bottom: 20px;
+}
+.item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.item input[type="checkbox"] {
+    margin-right: 10px;
+}
+.item.done label {
+    text-decoration: line-through;
+    color: #777;
+}
+
+.delete-btn {
+  margin-left: auto;
+  background: #ff4d4d;
+  border: none;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s;
+}
+
+.delete-btn:hover {
+  background: #e60000;
+}
